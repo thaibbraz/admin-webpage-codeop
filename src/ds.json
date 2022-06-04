@@ -1,0 +1,30 @@
+ {
+
+   "1": {
+        "module": "introduction to Programming",  
+        "lecture": [
+        { "title": "Introduction to Python", "link": "https://cutt.ly/XgAF9pr"},
+        { "title": "Variables primitives and operators", "link": "https://cutt.ly/qgAGbT3"},
+        { "title": "Functions", "link": "https://cutt.ly/5gAGI5u"},
+        { "title": "Exceptions", "link": "https://cutt.ly/VgAGFZp"}
+        ],
+        "activity": [
+        "https://github.com/CodeOp-tech/DA-python-variables",
+        "https://github.com/CodeOp-tech/DA-python-functions"
+        ]
+    
+    },
+"2": {
+    "module": "Python",
+
+    "lecture": [
+    { "title": "Conditionals", "link": "https://cutt.ly/5gAHtzY"},
+    { "title": "Loops", "link": "https://cutt.ly/8gAHWeh"}
+    ],
+    "activity": [
+    "https://github.com/CodeOp-tech/DA-python-conditionals",
+    "https://github.com/CodeOp-tech/DA-python-loops"
+    ]
+
+    }
+}
