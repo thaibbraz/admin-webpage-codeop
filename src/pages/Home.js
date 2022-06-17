@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import CodeOp_logo from '../CodeOp_logo_blue.jpg';
 import { Link } from "react-router-dom";
 
-function App() {
+function App(props) {
   return (
   
     <div className="App">
@@ -35,6 +35,7 @@ function App() {
                 >FE</Link>
                 </div>
             </div>
+            <button onClick={props.logout}> LOG OUT</button>
         </div>
     </div>
     </div>
