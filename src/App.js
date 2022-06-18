@@ -9,32 +9,38 @@ import Login from './pages/Login.js'
 import {signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth";
 import { set, ref, onValue, remove, update } from "firebase/database";
 import { auth, db } from "./firebase-config";
+
 import Local from './helpers/Local';
 import AuthenticatedRoute from './AuthenticatedRoute';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [user, setUsername] = useState("");
+  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
 
+  const ROLES = {
+    'Fe-instructor': 1901,
+    'Ds-instructor': 1984,
+    'FS-instructor': 1923,
+    'Admin': "admin"
+  }
+  
+
   useEffect(() => {
-    
-    // const refDB = ref('students')
-    // console.log(db.ref('/students/'));
-    // onValue(refDB, (snapshot) => {
-    //   console.log(snapshot.val());
-    // })
-    // onValue(ref(db), (snapshot) => {
-    //   setTodos([]);
-    //   const data = snapshot.val();
-    //   if (data !== null) {
-    //     Object.values(data).map((todo) => {
-    //       setTodos((oldArray) => [...oldArray, todo]);
-    //     });
-    //   }
-    // });
+    onValue(ref(db), (snapshot) => {
+      setTodos([]);
+      const data = snapshot.val();
+       setRole(data.users.role);
+      // console.log(data.students);
+      // if (data !== null) {
+      //   Object.values(data).map((todo) => {
+      //     setTodos((oldArray) => [...oldArray, todo]);
+      //   });
+      // }
+    });
   }, []);
 
   const login = async (name,pass) => {    
@@ -44,7 +50,8 @@ function App() {
 
       try {
         const user = await signInWithEmailAndPassword(auth, name, pass);
-        Local.saveUserInfo(user.user.accessToken, user.user.uid);
+        Local.saveUserInfo(user.user.accessToken, user.user.uid,role);
+        
         console.log("loged in", user);
         navigate('/');
       } catch (error) {
@@ -64,16 +71,16 @@ function App() {
     <main>
       <Fragment>
         <Routes>
-        <Route exact path='/' element={<AuthenticatedRoute/>}>
-            <Route exact path='/' element={<Home logout={() => logout()}/>}/>
+        <Route exact path='/' element={<AuthenticatedRoute allowedRoles={["admin"]}/>}>
+            <Route path='/' element={<Home logout={() => logout()}/>}/>
         </Route>
         
         
-        <Route exact path='/fsd' element={<AuthenticatedRoute/>}>
+        <Route exact path='/fsd' element={<AuthenticatedRoute allowedRoles={["fs-instructor","admin"]} />}>
 
             <Route exact path='/fsd' element={<Fsd />}/>
         </Route>
-        <Route exact path='/ds' element={<AuthenticatedRoute/>}>
+        <Route exact path='/ds' element={<AuthenticatedRoute allowedRoles={["ds-instructor","admin"]} />}>
             <Route exact path='/ds' element={<Ds />}/>
         </Route>    
           <Route path="/login" element={<Login login={(name,pass) => login(name,pass)} />} />
