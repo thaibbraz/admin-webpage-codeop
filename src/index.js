@@ -9,7 +9,7 @@ import Fe from './pages/Fe';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <Fe />
+    <App />
   </BrowserRouter>
 );
 
