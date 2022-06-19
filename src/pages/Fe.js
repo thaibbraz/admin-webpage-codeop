@@ -1,7 +1,7 @@
 import { useState } from "react";
 import feCurriculum from "./fe-curriculum";
 
-function Fe() {
+function Fe(props) {
     const [course, setCourse] = useState(feCurriculum);
 
     return (
@@ -36,8 +36,7 @@ function Fe() {
                     <>
                     { 
                     
-                         course.map((item, index) => 
-                            
+                         course.map((item, index) =>                             
                                 <tr className="bg-white hover:bg-gray-100" key={index}>
                                     <td className="text-center text-sm leading-5 font-medium text-gray-900">
                                     {index+1}
@@ -49,26 +48,25 @@ function Fe() {
                                     {item.name}
                                 </td>
                                 <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                                    <strong><a href={item.activity_link} className="co-btn" target="_blank">FE-{item.name}</a></strong>
+                                    <a href={item.activity_link} className="co-btn" target="_blank">FE-{item.name}</a>
                                 </td>
                                 <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                                    <strong><a href={item.slide_link} className="co-btn" target="_blank">FS-{item.name}</a></strong> 
+                                    <a href={item.slide_link} className="co-btn" target="_blank">FS-{item.name}</a>
                                 </td>  
                                 </tr>
-                            )
-                        
-                  
-                    
+                            )                    
                     }
                     <td className="text-center text-sm leading-5 font-medium text-gray-900">9</td>
                     <td className="text-center text-sm leading-5 font-medium text-gray-900">No module </td>
                     <td className="text-center text-sm leading-5 font-medium text-gray-900">Solutions</td>
                     
-                    <td className="text-center text-sm leading-5 font-medium text-gray-900"><strong><a href="https://github.com/CodeOp-tech/fe-solutions" className="co-btn" target="_blank">FE-solutions</a></strong></td>
-                    <td className="text-center text-sm leading-5 font-medium text-gray-900"><strong>NO SLIDES</strong></td>
+                    <td className="text-center text-sm leading-5 font-medium text-gray-900"><a href="https://github.com/CodeOp-tech/fe-solutions" className="co-btn" target="_blank">FE-solutions</a></td>
+                    <td className="text-center text-sm leading-5 font-medium text-gray-900">NO SLIDES</td>
                      </>
                     </tbody>
                   </table>
+                  <button  className="m-4 py-2 px-4 border border-transparent text-sm font-medium
+                  rounded-md text-black hover:bg-indigo-400 hover:text-white" onClick={props.logout}>Log out</button>
                 </div>
               </div>
             </div>

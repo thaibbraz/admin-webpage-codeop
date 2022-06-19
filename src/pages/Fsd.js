@@ -1,5 +1,5 @@
 
-function Fsd() {
+function Fsd(props) {
   return (
     <div className="App">
     <div className="my-20 mx-4 lg:m-20 xl:m-40 2xl:m-40 md:my-20 mx-10 sm:my-20 mx-10">   
@@ -28,8 +28,7 @@ function Fsd() {
    
                     </tr>
                   </thead>
-                  <tbody>
-                    
+                  <tbody>                    
                     <tr className="bg-white border-b hover:bg-gray-100">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 ">1</td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -128,6 +127,10 @@ function Fsd() {
                     </tr>                
                   </tbody>
                 </table>
+                <div className="group flex justify-center">
+                <button  className="m-4 py-2 px-4 border border-transparent text-sm font-medium
+                rounded-md text-black hover:bg-indigo-400 hover:text-white" onClick={props.logout}>Log out</button>
+            </div>
               </div>
             </div>
           </div>

@@ -13,6 +13,8 @@ import { auth, db } from "./firebase-config";
 
 import Local from './helpers/Local';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import Pm from './pages/Pm';
+import Fe from './pages/Fe';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -96,12 +98,17 @@ function App() {
         
         
         <Route exact path='/fsd' element={<AuthenticatedRoute allowedRoles={["fs-instructor","admin"]} />}>
-
-            <Route exact path='/fsd' element={<Fsd />}/>
+            <Route exact path='/fsd' element={<Fsd logout={() => logout()}/>}/>
+        </Route>
+        <Route exact path='/pm' element={<AuthenticatedRoute allowedRoles={["pm-instructor","admin"]} />}>
+            <Route exact path='/pm' element={<Pm logout={() => logout()}/>}/>
         </Route>
         <Route exact path='/ds' element={<AuthenticatedRoute allowedRoles={["ds-instructor","admin"]} />}>
-            <Route exact path='/ds' element={<Ds />}/>
-        </Route>    
+            <Route exact path='/ds' element={<Ds logout={() => logout()}/>}/>
+        </Route>  
+        <Route exact path='/fe' element={<AuthenticatedRoute allowedRoles={["fe-instructor","admin"]} />}>
+            <Route exact path='/fe' element={<Fe logout={() => logout()}/>}/>
+        </Route>  
           <Route path="/login" element={<Login login={(name,pass) => login(name,pass)} />} />
           <Route path="/unauthorized" element={<Unauthorized/>} />
         </Routes>
