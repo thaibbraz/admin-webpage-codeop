@@ -14,6 +14,7 @@
     static removeUserInfo() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('role');
     }
     
     static getToken() {
