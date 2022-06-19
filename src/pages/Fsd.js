@@ -2,10 +2,10 @@
 function Fsd() {
   return (
     <div className="App">
-    <div className="m-40 lg:m-30 xl:m-40 2xl:m-40 md:m-10 sm:m-5">   
+    <div className="my-20 mx-4 lg:m-20 xl:m-40 2xl:m-40 md:my-20 mx-10 sm:my-20 mx-10">   
       <div className="flex flex-col">
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="py-2 inline-block min-w-full sm:px-1 lg:px-1">
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead className="border-b ">
