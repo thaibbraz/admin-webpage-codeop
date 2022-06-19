@@ -31,7 +31,7 @@ function AuthenticatedRoute({ allowedRoles }) {
     
     let userId = Local.getToken();   
     let role = Local.getRole();
-    return allowedRoles?.includes(role) ? userId ? <Outlet /> : <Navigate to="/login" /> : <Navigate to="/unauthorized" />;
+    return allowedRoles?.includes(role) ? <Outlet /> : userId ? <Navigate to="/unauthorized" /> : <Navigate to="/login" />;
     // if (!userId) {
     //     return <Navigate to="/login" />;
     // }

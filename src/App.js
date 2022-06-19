@@ -92,11 +92,10 @@ function App() {
     <main>
       <Fragment>
         <Routes>
+        <Route path="/login" element={<Login login={(name,pass) => login(name,pass)} />} />
         <Route exact path='/' element={<AuthenticatedRoute allowedRoles={["admin"]}/>}>
             <Route path='/' element={<Home logout={() => logout()}/>}/>
-        </Route>
-        
-        
+        </Route>           
         <Route exact path='/fsd' element={<AuthenticatedRoute allowedRoles={["fs-instructor","admin"]} />}>
             <Route exact path='/fsd' element={<Fsd logout={() => logout()}/>}/>
         </Route>
@@ -109,7 +108,7 @@ function App() {
         <Route exact path='/fe' element={<AuthenticatedRoute allowedRoles={["fe-instructor","admin"]} />}>
             <Route exact path='/fe' element={<Fe logout={() => logout()}/>}/>
         </Route>  
-          <Route path="/login" element={<Login login={(name,pass) => login(name,pass)} />} />
+        
           <Route path="/unauthorized" element={<Unauthorized/>} />
         </Routes>
       </Fragment>
