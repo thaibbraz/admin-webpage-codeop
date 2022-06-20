@@ -22,12 +22,14 @@ function App() {
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [todos, setTodos] = useState([]);
+  const [attendanceList, setAttendanceList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
       // setTodos([]);
-      // const data = snapshot.val();
+      const data = snapshot.val();
+      setAttendanceList(data.attendance);
       //  setRole(data.users.role);
 
       // console.log(data.students);
@@ -100,7 +102,7 @@ function App() {
             <Route exact path='/fsd' element={<Fsd logout={() => logout()}/>}/>
         </Route>
         <Route exact path='/pm' element={<AuthenticatedRoute allowedRoles={["pm-instructor","admin"]} />}>
-            <Route exact path='/pm' element={<Pm logout={() => logout()}/>}/>
+            <Route exact path='/pm' element={<Pm attendanceList={attendanceList} logout={() => logout()}/>}/>
         </Route>
         <Route exact path='/ds' element={<AuthenticatedRoute allowedRoles={["ds-instructor","admin"]} />}>
             <Route exact path='/ds' element={<Ds logout={() => logout()}/>}/>

@@ -24,7 +24,7 @@ function App(props) {
                 <Link
                   className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
                   to="/pm"
-                >PM</Link>
+                >Attendance list</Link>
                 <Link
                   className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
                   to="/ds"
