@@ -12,7 +12,7 @@ function Pm(props) {
                 <div className="overflow-x-auto">
                   <table className="min-w-full">
                     <thead className="border-b">
-                      <tr className="border-b bg-indigo-200 hover:bg-indigo-400">
+                      <tr className="bg-indigo-200 hover:bg-indigo-400">
                         <th scope="col" className=" text-sm font-medium text-white-900 px-6 py-4 text-center">
                           #
                         </th>
@@ -21,6 +21,9 @@ function Pm(props) {
                         </th>
                         <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
                          Date
+                        </th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+                         Missed classes
                         </th>
                         <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
                         Cohort
@@ -46,7 +49,10 @@ function Pm(props) {
                             {item}
                             </div>
                             )}
-                           </td>                         
+                           </td>   
+                           <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                               <a href={item.slide_link} className="co-btn" target="_blank">{item.missed_classes}</a>
+                           </td>                        
                            <td className="text-center text-sm leading-5 font-medium text-gray-900">
                                <a href={item.slide_link} className="co-btn" target="_blank">{item.cohort}</a>
                            </td>  
