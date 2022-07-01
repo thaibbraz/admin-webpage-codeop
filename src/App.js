@@ -11,13 +11,15 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { set, ref, onValue, remove, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { auth, db } from "./firebase-config";
 
 import Local from "./helpers/Local";
 import AuthenticatedRoute from "./AuthenticatedRoute";
-import Pm from "./pages/Pm";
+import AttendanceList from "./pages/AttendanceList";
 import Fe from "./pages/Fe";
+import Pm from "./pages/Pm";
+import Courses from "./pages/Courses";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,17 +32,8 @@ function App() {
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
-      // setTodos([]);
       const data = snapshot.val();
       setAttendanceList(data.attendance);
-      //  setRole(data.users.role);
-
-      // console.log(data.students);
-      // if (data !== null) {
-      //   Object.values(data).map((todo) => {
-      //     setTodos((oldArray) => [...oldArray, todo]);
-      //   });
-      // }
     });
   }, []);
 
@@ -66,13 +59,13 @@ function App() {
             navigate("/");
             break;
           case "fs-instructor":
-            navigate("/fsd");
+            navigate("/courses/fsd");
             break;
           case "ds-instructor":
-            navigate("/ds");
+            navigate("/courses/ds");
             break;
           case "pm-instructor":
-            navigate("/pm");
+            navigate("/courses/pm");
             break;
         }
       });
@@ -104,27 +97,27 @@ function App() {
             </Route>
             <Route
               exact
-              path="/fsd"
+              path="/courses/fsd"
               element={
                 <AuthenticatedRoute allowedRoles={["fs-instructor", "admin"]} />
               }
             >
               <Route
                 exact
-                path="/fsd"
+                path="/courses/fsd"
                 element={<Fsd logout={() => logout()} />}
               />
             </Route>
             <Route
               exact
-              path="/pm"
+              path="/courses/pm"
               element={
                 <AuthenticatedRoute allowedRoles={["pm-instructor", "admin"]} />
               }
             >
               <Route
                 exact
-                path="/pm"
+                path="/courses/pm"
                 element={
                   <Pm attendanceList={attendanceList} logout={() => logout()} />
                 }
@@ -132,31 +125,59 @@ function App() {
             </Route>
             <Route
               exact
-              path="/ds"
+              path="/attendance-list"
+              element={<AuthenticatedRoute allowedRoles={["admin"]} />}
+            >
+              <Route
+                exact
+                path="/attendance-list"
+                element={
+                  <AttendanceList
+                    attendanceList={attendanceList}
+                    logout={() => logout()}
+                  />
+                }
+              />
+            </Route>
+            <Route
+              exact
+              path="/courses/ds"
               element={
                 <AuthenticatedRoute allowedRoles={["ds-instructor", "admin"]} />
               }
             >
               <Route
                 exact
-                path="/ds"
+                path="/courses/ds"
                 element={<Ds logout={() => logout()} />}
               />
             </Route>
             <Route
               exact
-              path="/fe"
+              path="/courses/fe"
               element={
                 <AuthenticatedRoute allowedRoles={["fe-instructor", "admin"]} />
               }
             >
               <Route
                 exact
-                path="/fe"
+                path="/courses/fe"
                 element={<Fe logout={() => logout()} />}
               />
             </Route>
-
+            <Route
+              exact
+              path="/courses"
+              element={
+                <AuthenticatedRoute allowedRoles={["fe-instructor", "admin"]} />
+              }
+            >
+              <Route
+                exact
+                path="/courses"
+                element={<Courses logout={() => logout()} />}
+              />
+            </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </Fragment>

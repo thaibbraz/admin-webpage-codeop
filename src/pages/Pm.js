@@ -1,73 +1,123 @@
-function Pm(props) {
+import { useState } from "react";
+import feCurriculum from "./fe-curriculum";
+
+function Fe(props) {
+  const [course, setCourse] = useState(feCurriculum);
+
   return (
-    <div className="p-5 h-screen bg-gray-200">
-      <div className="bg-gray-100 p-4 rounded-lg shadow h-50">
-        <div className="bg-white p-4 my-10 rounded-lg shadow">
-          <h1 className="text-xl mb-2">Students</h1>
-        </div>
-        <div className="overflow-auto my-5 rounded-lg shadow">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b-2 border-gray-200 shadow">
-              <tr>
-                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                  Id
-                </th>
-                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                  Name
-                </th>
-                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                  Cohort
-                </th>
-                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                  Status
-                </th>
-                <th className="w-32 p-3 text-sm font-semibold tracking-wide">
-                  Missed Classes
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {props.attendanceList[Object.keys(props.attendanceList)[0]].map(
-                (item, index) => (
-                  <>
-                    <tr className="bg-white">
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        {index + 1}
+    <div className="App">
+      <div className="m-40 lg:m-30 xl:m-40 2xl:m-40 md:m-10 sm:m-5">
+        <div className="flex flex-col">
+          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="border-b ">
+                    <tr className="bg-indigo-200 hover:bg-indigo-400">
+                      <th
+                        scope="col"
+                        className=" text-sm font-medium text-white-900 px-6 py-4 text-center"
+                      >
+                        #
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                      >
+                        Module
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                      >
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                      >
+                        Activity link
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-6 py-4 text-center"
+                      >
+                        Slides
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <>
+                      {course.map((item, index) => (
+                        <tr className="bg-white hover:bg-gray-100" key={index}>
+                          <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                            {index + 1}
+                          </td>
+                          <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                            {"HTML & CSS"}
+                          </td>
+                          <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                            {item.name}
+                          </td>
+                          <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                            <a
+                              href={item.activity_link}
+                              className="co-btn"
+                              target="_blank"
+                            >
+                              FE-{item.name}
+                            </a>
+                          </td>
+                          <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                            <a
+                              href={item.slide_link}
+                              className="co-btn"
+                              target="_blank"
+                            >
+                              FS-{item.name}
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                      <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                        9
                       </td>
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        {item.name}
+                      <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                        No module{" "}
                       </td>
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <span className="py-1 px-1.5 text:xs font-medium uppercase tracking wider text-green-800 bg-green-200 rounded-lg bg-opacity-500 ">
-                          {item.cohort}
-                        </span>
+                      <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                        Solutions
                       </td>
 
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <span className="py-1 px-1.5 text:xs font-medium uppercase tracking wider text-green-800 bg-green-200 rounded-lg bg-opacity-500 ">
-                          good
-                        </span>
-                      </td>
-
-                      <td className="p-3 text-sm text-gray-700">
+                      <td className="text-center text-sm leading-5 font-medium text-gray-900">
                         <a
-                          href={item.slide_link}
+                          href="https://github.com/CodeOp-tech/fe-solutions"
                           className="co-btn"
                           target="_blank"
                         >
-                          {item.missed_classes}
+                          FE-solutions
                         </a>
                       </td>
-                    </tr>
-                  </>
-                )
-              )}
-            </tbody>
-          </table>
+                      <td className="text-center text-sm leading-5 font-medium text-gray-900">
+                        NO SLIDES
+                      </td>
+                    </>
+                  </tbody>
+                </table>
+                <button
+                  className="m-4 py-2 px-4 border border-transparent text-sm font-medium
+                  rounded-md text-black hover:bg-indigo-400 hover:text-white"
+                  onClick={props.logout}
+                >
+                  Log out
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Pm;
+export default Fe;
