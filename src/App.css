@@ -36,8 +36,9 @@
     transform: rotate(360deg);
   }
 }
-a:hover{
-  text-decoration: underline;
-  color: #25055f;
-  background-color: #d9d7dc83;
+a:hover {
+  color: #000000;
+  background-color: #00000012;
+  border: #998bfc;
+  font-weight: 500;
 }

@@ -1,78 +1,73 @@
-
-
 function Pm(props) {
+  return (
+    <div className="p-5 h-screen bg-gray-200">
+      <div className="bg-gray-100 p-4 rounded-lg shadow h-50">
+        <div className="bg-white p-4 my-10 rounded-lg shadow">
+          <h1 className="text-xl mb-2">Students</h1>
+        </div>
+        <div className="overflow-auto my-5 rounded-lg shadow">
+          <table className="w-full">
+            <thead className="bg-gray-50 border-b-2 border-gray-200 shadow">
+              <tr>
+                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
+                  Id
+                </th>
+                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
+                  Name
+                </th>
+                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
+                  Cohort
+                </th>
+                <th className="w-20 p-3 text-sm font-semibold tracking-wide">
+                  Status
+                </th>
+                <th className="w-32 p-3 text-sm font-semibold tracking-wide">
+                  Missed Classes
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {props.attendanceList[Object.keys(props.attendanceList)[0]].map(
+                (item, index) => (
+                  <>
+                    <tr className="bg-white">
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {index + 1}
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {item.name}
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <span className="py-1 px-1.5 text:xs font-medium uppercase tracking wider text-green-800 bg-green-200 rounded-lg bg-opacity-500 ">
+                          {item.cohort}
+                        </span>
+                      </td>
 
-  
-    return (
-      <div className="App">
-      <div className="my-20 mx-4 lg:m-20 xl:m-40 2xl:m-40 md:my-20 mx-10 sm:my-20 mx-10">   
-        <div className="flex flex-col">
-            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 inline-block min-w-full sm:px-1 lg:px-1">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full">
-                    <thead className="border-b">
-                      <tr className="bg-indigo-200 hover:bg-indigo-400">
-                        <th scope="col" className=" text-sm font-medium text-white-900 px-6 py-4 text-center">
-                          #
-                        </th>
-                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                         Student Name
-                        </th>
-                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                         Date
-                        </th>
-                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                         Missed classes
-                        </th>
-                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
-                        Cohort
-                        </th>
-                        
-     
-                      </tr>
-                    </thead>
-                    <tbody>   
-                    { 
-                    
-                    props.attendanceList[Object.keys(props.attendanceList)[0]].map((item, index) =>                             
-                           <tr className="border-b bg-white hover:bg-gray-100" key={index}>
-                               <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                               {index+1}
-                           </td>
-                           <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                           {item.name}
-                           </td>
-                           <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                           {item.date.map((item, index) =>
-                           <div key={index}>
-                            {item}
-                            </div>
-                            )}
-                           </td>   
-                           <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                               <a href={item.slide_link} className="co-btn" target="_blank">{item.missed_classes}</a>
-                           </td>                        
-                           <td className="text-center text-sm leading-5 font-medium text-gray-900">
-                               <a href={item.slide_link} className="co-btn" target="_blank">{item.cohort}</a>
-                           </td>  
-                           </tr>
-                       )                    
-               }               
-                    </tbody>
-                  </table>
-                  <div className="group flex justify-center">
-                  <button  className="m-4 py-2 px-4 border border-transparent text-sm font-medium
-                  rounded-md text-black hover:bg-indigo-400 hover:text-white" onClick={props.logout}>Log out</button>
-              </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <span className="py-1 px-1.5 text:xs font-medium uppercase tracking wider text-green-800 bg-green-200 rounded-lg bg-opacity-500 ">
+                          good
+                        </span>
+                      </td>
+
+                      <td className="p-3 text-sm text-gray-700">
+                        <a
+                          href={item.slide_link}
+                          className="co-btn"
+                          target="_blank"
+                        >
+                          {item.missed_classes}
+                        </a>
+                      </td>
+                    </tr>
+                  </>
+                )
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-      </div>
-    );
-  }
-  
-  export default Pm;
-  
+    </div>
+  );
+}
+
+export default Pm;
