@@ -20,6 +20,8 @@ import AttendanceList from "./pages/AttendanceList";
 import Fe from "./pages/Fe";
 import Pm from "./pages/Pm";
 import Courses from "./pages/Courses";
+import Cohorts from "./pages/Cohorts";
+import Admin from "./pages/Admin";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -178,6 +180,32 @@ function App() {
                 element={<Courses logout={() => logout()} />}
               />
             </Route>
+            <Route
+              exact
+              path="/cohorts"
+              element={
+                <AuthenticatedRoute allowedRoles={["fe-instructor", "admin"]} />
+              }
+            >
+              <Route
+                exact
+                path="/cohorts"
+                element={<Cohorts logout={() => logout()} />}
+              />
+            </Route>
+
+            <Route
+              exact
+              path="/admin"
+              element={<AuthenticatedRoute allowedRoles={["admin"]} />}
+            >
+              <Route
+                exact
+                path="/admin"
+                element={<Admin logout={() => logout()} />}
+              />
+            </Route>
+
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </Fragment>
