@@ -22,6 +22,8 @@ import Pm from "./pages/Pm";
 import Courses from "./pages/Courses";
 import Cohorts from "./pages/Cohorts";
 import Admin from "./pages/Admin";
+import Surveys from "./pages/Surveys";
+import GuestSpeaker from "./pages/surveys/GuestSpeaker";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -205,7 +207,28 @@ function App() {
                 element={<Admin logout={() => logout()} />}
               />
             </Route>
-
+            <Route
+              exact
+              path="/admin/surveys"
+              element={<AuthenticatedRoute allowedRoles={["admin"]} />}
+            >
+              <Route
+                exact
+                path="/admin/surveys"
+                element={<Surveys logout={() => logout()} />}
+              />
+            </Route>
+            <Route
+              exact
+              path="/admin/surveys/guest-speaker"
+              element={<AuthenticatedRoute allowedRoles={["admin"]} />}
+            >
+              <Route
+                exact
+                path="/admin/surveys/guest-speaker"
+                element={<GuestSpeaker logout={() => logout()} />}
+              />
+            </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </Fragment>
