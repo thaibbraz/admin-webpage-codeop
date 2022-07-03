@@ -278,7 +278,7 @@ function App() {
                       exact
                       path={`/cohorts/${cohort.name}`}
                       element={
-                        <Cohort cohort={cohort.name} logout={() => logout()} />
+                        <Cohort cohort={cohort} logout={() => logout()} />
                       }
                     />
                   </Route>
