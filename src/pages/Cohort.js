@@ -1,8 +1,7 @@
 import CodeOp_logo from "../CodeOp_logo_blue.jpg";
 import { Link } from "react-router-dom";
-import Cohort from "./Cohort";
 
-function Cohorts(props) {
+function Cohort(props) {
   return (
     <div className="App">
       <div className="container mx-auto p-4">
@@ -13,15 +12,7 @@ function Cohorts(props) {
         <div className="divide-y">
           <div className="py-8">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {props.cohorts.map((cohort) => (
-                <Link
-                  className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
-                  to={`/cohorts/${cohort.name}`}
-                >
-                  {cohort.name}
-                </Link>
-              ))}
-              {/* <Link
+              <Link
                 className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
                 to="/courses"
               >
@@ -44,7 +35,7 @@ function Cohorts(props) {
                 to="/admin"
               >
                 FSPT12
-              </Link> */}
+              </Link>
             </div>
           </div>
           <button
@@ -60,4 +51,4 @@ function Cohorts(props) {
   );
 }
 
-export default Cohorts;
+export default Cohort;

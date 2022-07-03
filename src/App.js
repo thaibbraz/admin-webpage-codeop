@@ -6,11 +6,7 @@ import Fsd from "./pages/Fsd.js";
 import Ds from "./pages/Ds.js";
 import Unauthorized from "./pages/Unauthorized.js";
 import Login from "./pages/Login.js";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { ref, onValue } from "firebase/database";
 import { auth, db } from "./firebase-config";
 
@@ -21,11 +17,53 @@ import Fe from "./pages/Fe";
 import Pm from "./pages/Pm";
 import Courses from "./pages/Courses";
 import Cohorts from "./pages/Cohorts";
+import Cohort from "./pages/Cohort";
 import Admin from "./pages/Admin";
 import Surveys from "./pages/Surveys";
 import GuestSpeaker from "./pages/surveys/GuestSpeaker";
 
 function App() {
+  const [cohorts, setCohorts] = useState([
+    {
+      name: "fspt10",
+      number_students: 5,
+      graduated: "",
+      instructor: "Nicholas",
+      certificates: "",
+      playlist: "",
+      tracker: "",
+    },
+    {
+      id: 1,
+      name: "fs20",
+      number_students: 5,
+      graduated: "",
+      instructor: "Germinal",
+      certificates: "",
+      playlist: "",
+      tracker: "",
+    },
+    {
+      id: 1,
+      name: "fspt11",
+      number_students: 5,
+      graduated: "",
+      instructor: "Nicholas",
+      certificates: "",
+      playlist: "",
+      tracker: "",
+    },
+    {
+      id: 1,
+      name: "fspt12",
+      number_students: 5,
+      graduated: "",
+      instructor: "Nicholas",
+      certificates: "",
+      playlist: "",
+      tracker: "",
+    },
+  ]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUsername] = useState("");
   const [role, setRole] = useState("");
@@ -192,10 +230,9 @@ function App() {
               <Route
                 exact
                 path="/cohorts"
-                element={<Cohorts logout={() => logout()} />}
+                element={<Cohorts cohorts={cohorts} logout={() => logout()} />}
               />
             </Route>
-
             <Route
               exact
               path="/admin"
@@ -229,6 +266,24 @@ function App() {
                 element={<GuestSpeaker logout={() => logout()} />}
               />
             </Route>
+            {cohorts &&
+              cohorts.map((cohort) => (
+                <>
+                  <Route
+                    exact
+                    path={`/cohorts/${cohort.name}`}
+                    element={<AuthenticatedRoute allowedRoles={["admin"]} />}
+                  >
+                    <Route
+                      exact
+                      path={`/cohorts/${cohort.name}`}
+                      element={
+                        <Cohort cohort={cohort.name} logout={() => logout()} />
+                      }
+                    />
+                  </Route>
+                </>
+              ))}
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </Fragment>
