@@ -4,48 +4,79 @@ import { auth, db } from "../../firebase-config";
 
 function GuestSpeaker(props) {
   const [surveys, setSurveys] = useState([]);
-  const [collection, setCollection] = useState([]);
+  const [obj, setObj] = useState({});
   const speakers = "survey-speakers";
-
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
-
       let speakersFiltered = data.speakers.filter((item) => item[0].length > 0);
       speakersFiltered = speakersFiltered.sort();
-      setSurveys(speakersFiltered);
 
-      // create an object in which every Key is every brand we find in the array
-      let result = {};
-      let counter = 0;
-      // loop through the resulting array
-      for (let i = 0; i < speakersFiltered.length; i++) {
-        let name = speakersFiltered[i][0];
-        let instructor_rate = speakersFiltered[i][2];
-        if (result[name]) {
-          result[name].rate += instructor_rate;
-
-          counter += 1;
-          if (speakersFiltered[i][0] !== speakersFiltered[i + 1][0]) {
-            result[name].rate = Math.round(result[name].rate / counter);
+      const obj = {};
+      speakersFiltered.map(function (answer) {
+        let name = answer[0];
+        for (const key in obj) {
+          if (key === undefined) {
+            obj[name] = {
+              // instructor: { rate: 0, total: 0 },
+              // content: { rate: 0, total: 0 },
+              // interactive: { rate: 0, total: 0 },
+              // fit_course: { rate: 0, total: 0 },
+            };
+          } else if (key === name) {
+            obj[key] = {
+              // instructor: {
+              //   rate: obj[key].instructor + answer[1],
+              //   total: obj[key].total + answer[2],
+              // },
+              // content: { rate: 0, total: 0 },
+              // interactive: { rate: 0, total: 0 },
+              // fit_course: { rate: 0, total: 0 },
+            };
           }
-
-          // console.log(name);
-        } else {
-          result[name] = {
-            rate: Number(speakersFiltered[i][2]),
-          };
-          counter = 1;
+          // setObj(obj);
         }
-      }
-      setCollection(result);
-      // console.log(result);
+      });
+
+      setSurveys(speakersFiltered);
     });
   }, []);
+
+  //   function advancedFilter(array, obj) {
+  //     //example
+  //     array[("salskal", "5", "4", "5")];
+  //     let name = array[0];
+  //     for (const key in obj) {
+  //       if (key === undefined) {
+  //         obj[name] = {
+  //           instructor: { rate: 0, total: 0 },
+  //           content: { rate: 0, total: 0 },
+  //           interactive: { rate: 0, total: 0 },
+  //           fit_course: { rate: 0, total: 0 },
+  //         };
+  //       } else if (key === name) {
+  //         obj[key] = {
+  //           instructor: { rate: rate + array[1], total: total + array[2] },
+  //           content: { rate: 0, total: 0 },
+  //           interactive: { rate: 0, total: 0 },
+  //           fit_course: { rate: 0, total: 0 },
+  //         };
+  //       }
+  //     }
+
+  //     console.log(obj);
+  //     //each element of the obj be an array element
+  //     //go through array and print values
+  //   }
 
   return (
     <div classNameName="App">
       <div className="w-full flex space-between">
+        {/* {surveys.map(
+            (answer) => {
+                
+            }
+        )} */}
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
