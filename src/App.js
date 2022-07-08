@@ -25,6 +25,7 @@ import GuestSpeaker from "./pages/surveys/GuestSpeaker";
 function App() {
   const [cohorts, setCohorts] = useState([
     {
+      id: 1,
       name: "fspt10",
       number_students: 5,
       graduated: "",
@@ -34,7 +35,7 @@ function App() {
       tracker: "",
     },
     {
-      id: 1,
+      id: 2,
       name: "fs20",
       number_students: 5,
       graduated: "",
@@ -44,7 +45,7 @@ function App() {
       tracker: "",
     },
     {
-      id: 1,
+      id: 3,
       name: "fspt11",
       number_students: 5,
       graduated: "",
@@ -54,7 +55,7 @@ function App() {
       tracker: "",
     },
     {
-      id: 1,
+      id: 4,
       name: "fspt12",
       number_students: 5,
       graduated: "",
@@ -76,6 +77,8 @@ function App() {
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
       setAttendanceList(data.attendance);
+      console.log(data.cohorts);
+      setCohorts(data.cohorts);
     });
   }, []);
 

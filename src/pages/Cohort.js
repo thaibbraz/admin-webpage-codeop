@@ -2,17 +2,9 @@ import CodeOp_logo from "../CodeOp_logo_blue.jpg";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import React from "react";
+import { useEffect } from "react";
 function Cohort(props) {
   const [showModal, setShowModal] = React.useState(false);
-  // const postStudent = () => {
-  //   database
-  //     .ref("user")
-  //     .set({
-  //       name: name,
-  //       age: age,
-  //     })
-  //     .catch(alert);
-  // };
 
   return (
     <div className="App">
@@ -94,7 +86,6 @@ function Cohort(props) {
                         />
                       </div>
                       <div className="my-3">
-                        \ab\messages\rooms\room_ca521af2e9724f6c65bf70737f4ac843
                         <input
                           type="email"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
