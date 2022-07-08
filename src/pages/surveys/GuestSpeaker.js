@@ -8,6 +8,7 @@ function GuestSpeaker(props) {
   const speakers = "survey-speakers";
 
   useEffect(() => {
+    let speakersFiltered = [];
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
 
@@ -15,38 +16,50 @@ function GuestSpeaker(props) {
       speakersFiltered = speakersFiltered.sort();
       setSurveys(speakersFiltered);
 
-      // create an object in which every Key is every brand we find in the array
       let result = {};
       let counter = 0;
       // loop through the resulting array
       for (let i = 0; i < speakersFiltered.length; i++) {
         let name = speakersFiltered[i][0];
-        let instructor_rate = speakersFiltered[i][2];
-        if (result[name]) {
-          result[name].rate += instructor_rate;
 
+        // let instructor_rate = speakersFiltered[i][2];
+        if (result[name]) {
+          result[name].instructor += speakersFiltered[i][1];
+          result[name].content += speakersFiltered[i][2];
+          result[name].interactive += speakersFiltered[i][3];
+          result[name].fit_course += speakersFiltered[i][4];
           counter += 1;
           if (speakersFiltered[i][0] !== speakersFiltered[i + 1][0]) {
-            result[name].rate = Math.round(result[name].rate / counter);
+            result[name].instructor = Math.round(
+              result[name].instructor / counter
+            );
+            result[name].content = Math.round(result[name].content / counter);
+            result[name].interactive = Math.round(
+              result[name].interactive / counter
+            );
+            result[name].fit_course = Math.round(
+              result[name].fit_course / counter
+            );
           }
-
-          // console.log(name);
         } else {
           result[name] = {
-            rate: Number(speakersFiltered[i][2]),
+            instructor: Number(speakersFiltered[i][1]),
+            content: Number(speakersFiltered[i][2]),
+            interactive: Number(speakersFiltered[i][3]),
+            fit_course: Number(speakersFiltered[i][4]),
           };
           counter = 1;
         }
+        setCollection(result);
       }
-      setCollection(result);
-      // console.log(result);
     });
   }, []);
 
   return (
     <div classNameName="App">
       <div className="w-full flex space-between">
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
+        {/* {props.attendanceList[Object.keys(props.attendanceList)[0]].map()} */}
+        {/* <div className="max-w-sm rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
             <p className="text-gray-700 text-base">
@@ -66,7 +79,7 @@ function GuestSpeaker(props) {
               #winter
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
