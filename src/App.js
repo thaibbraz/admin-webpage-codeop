@@ -11,7 +11,7 @@ import { ref, onValue } from "firebase/database";
 import { auth, db } from "./firebase-config";
 
 import Local from "./helpers/Local";
-import AuthenticatedRoute from "./AuthenticatedRoute";
+import AuthenticatedRoute from "./helpers/AuthenticatedRoute";
 import AttendanceList from "./pages/AttendanceList";
 import Fe from "./pages/Fe";
 import Pm from "./pages/Pm";
@@ -77,7 +77,6 @@ function App() {
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
       setAttendanceList(data.attendance);
-      console.log(data.cohorts);
       setCohorts(data.cohorts);
     });
   }, []);
