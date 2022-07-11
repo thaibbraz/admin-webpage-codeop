@@ -1,11 +1,40 @@
 import CodeOp_logo from "../assets/CodeOp_logo_blue.jpg";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
+import { ref, onValue, getDatabase, set } from "firebase/database";
+// import { getDatabase } from "firebase/database";
+
 import React from "react";
 import { useEffect } from "react";
 function Cohort(props) {
   const [showModal, setShowModal] = React.useState(false);
+  const [newStudent, setNewStudent] = React.useState({
+    name: "",
+    email: "",
+    cohort: "",
+    profile_picture: "",
+  });
 
+  const database = getDatabase();
+
+  function writeUserData() {
+    const db = getDatabase();
+    set(ref(db, "students/" + 1), {
+      username: "name",
+      email: "email",
+      profile_picture: "imageUrl",
+    });
+  }
+  function handleChange(event) {
+    let { name, value } = event.target;
+    const newObj = {
+      ...newStudent,
+      [name]: value,
+    };
+    console.log(newObj);
+    console.log(name + " " + value);
+    setNewStudent(newObj);
+  }
   return (
     <div className="App">
       <div className="container mx-auto p-4">
@@ -79,9 +108,11 @@ function Cohort(props) {
                     <div className="relative p-6 flex-auto">
                       <div className="my-3">
                         <input
-                          type="email"
+                          type="name"
+                          name="name"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Name"
+                          onChange={(e) => handleChange(e)}
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
@@ -122,7 +153,7 @@ function Cohort(props) {
                       <button
                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => setShowModal(false)}
+                        onClick={() => writeUserData()}
                       >
                         Add Student
                       </button>
