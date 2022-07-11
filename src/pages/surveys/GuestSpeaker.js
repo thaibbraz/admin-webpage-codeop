@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
 import { auth, db } from "../../firebase-config";
+import CardStats from "../../components/CardStats";
+
+// import CodeOp_logo from "../assets/CodeOp_logo_blue.jpg";
+import { Link } from "react-router-dom";
 
 function GuestSpeaker(props) {
   const [surveys, setSurveys] = useState([]);
@@ -18,8 +22,9 @@ function GuestSpeaker(props) {
 
       let result = {};
       let counter = 0;
+      let newArr = [];
       // loop through the resulting array
-      for (let i = 0; i < speakersFiltered.length; i++) {
+      for (let i = 0; i <= speakersFiltered.length; i++) {
         let name = speakersFiltered[i][0];
 
         // let instructor_rate = speakersFiltered[i][2];
@@ -51,80 +56,90 @@ function GuestSpeaker(props) {
           counter = 1;
         }
         setCollection(result);
+        newArr = [...Object.entries(result)];
+        newArr.pop();
+        setCollection(newArr);
       }
+
+      // speakersFiltered.forEach(element => {
+      //   Object.entries(result);
+      // });
     });
   }, []);
 
   return (
-    <div classNameName="App">
-      <div className="w-full flex space-between">
-        {/* {props.attendanceList[Object.keys(props.attendanceList)[0]].map()} */}
-        {/* <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div> */}
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div>
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
+    <div className="App bg-gray-100">
+      {/* <div className="container md:ml-64 mx-auto p-4 bg-blue-100"> */}
+      {/* <div className="relative md:ml-64 bg-blue-100"> */}
+      <div className="relative bg-lightBlue-600 md:pt-32 pb-32 pt-12 ">
+        <div className="px-4 md:px-10 mx-auto w-full">
+          <div>
+            {/* Card stats */}
+            <div className="flex flex-wrap">
+              {collection.map(
+                (item) => (
+                  <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                    <CardStats
+                      statSubtitle={item[0]}
+                      statTitle="350,897"
+                      statArrow="up"
+                      instructor={(item[1].instructor * 100) / 5}
+                      content={(item[1].content * 100) / 5}
+                      interactive={(item[1].interactive * 100) / 5}
+                      fit_course={(item[1].fit_course * 100) / 5}
+                      statPercentColor="text-emerald-500"
+                      statDescripiron=""
+                      statIconName="far fa-chart-bar"
+                      statIconColor="bg-green-500"
+                    />
+                  </div>
+                )
+                // item.forEach(element => { })
+              )}
+
+              {/* <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <CardStats
+                    statSubtitle="NEW USERS"
+                    statTitle="2,356"
+                    statArrow="down"
+                    statPercent="3.48"
+                    statPercentColor="text-red-500"
+                    statDescripiron="Since last week"
+                    statIconName="fas fa-chart-pie"
+                    statIconColor="bg-orange-500"
+                  />
+                </div>
+                <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <CardStats
+                    statSubtitle="SALES"
+                    statTitle="924"
+                    statArrow="down"
+                    statPercent="1.10"
+                    statPercentColor="text-orange-500"
+                    statDescripiron="Since yesterday"
+                    statIconName="fas fa-users"
+                    statIconColor="bg-pink-500"
+                  />
+                </div>
+                <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <CardStats
+                    statSubtitle="PERFORMANCE"
+                    statTitle="49,65%"
+                    statArrow="up"
+                    statPercent="12"
+                    statPercentColor="text-emerald-500"
+                    statDescripiron="Since last month"
+                    statIconName="fas fa-percent"
+                    statIconColor="bg-lightBlue-500"
+                  />
+                </div> */}
+            </div>
           </div>
         </div>
       </div>
+
       <button
-        classNameName="m-4 py-2 px-4 border border-transparent text-sm font-medium
+        className="m-4 py-2 px-4 border border-transparent text-sm font-medium
                 rounded-md text-black hover:bg-indigo-400 hover:text-white"
         onClick={props.logout}
       >

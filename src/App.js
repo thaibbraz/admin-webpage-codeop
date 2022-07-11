@@ -23,48 +23,7 @@ import Surveys from "./pages/Surveys";
 import GuestSpeaker from "./pages/surveys/GuestSpeaker";
 
 function App() {
-  const [cohorts, setCohorts] = useState([
-    {
-      id: 1,
-      name: "fspt10",
-      number_students: 5,
-      graduated: "",
-      instructor: "Nicholas",
-      certificates: "",
-      playlist: "",
-      tracker: "",
-    },
-    {
-      id: 2,
-      name: "fs20",
-      number_students: 5,
-      graduated: "",
-      instructor: "Germinal",
-      certificates: "",
-      playlist: "",
-      tracker: "",
-    },
-    {
-      id: 3,
-      name: "fspt11",
-      number_students: 5,
-      graduated: "",
-      instructor: "Nicholas",
-      certificates: "",
-      playlist: "",
-      tracker: "",
-    },
-    {
-      id: 4,
-      name: "fspt12",
-      number_students: 5,
-      graduated: "",
-      instructor: "Nicholas",
-      certificates: "",
-      playlist: "",
-      tracker: "",
-    },
-  ]);
+  const [cohorts, setCohorts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUsername] = useState("");
   const [role, setRole] = useState("");

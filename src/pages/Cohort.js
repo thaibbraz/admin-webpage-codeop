@@ -1,4 +1,4 @@
-import CodeOp_logo from "../CodeOp_logo_blue.jpg";
+import CodeOp_logo from "../assets/CodeOp_logo_blue.jpg";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import React from "react";
