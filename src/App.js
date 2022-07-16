@@ -21,6 +21,8 @@ import Cohort from "./pages/Cohort";
 import Admin from "./pages/Admin";
 import Surveys from "./pages/Surveys";
 import GuestSpeaker from "./pages/surveys/GuestSpeaker";
+import Navbar from "./components/Navbar";
+import PostBootCamp from "./pages/surveys/PostBootcamp";
 
 function App() {
   const [cohorts, setCohorts] = useState([]);
@@ -84,6 +86,7 @@ function App() {
   };
   return (
     <div className="App">
+      <Navbar logout={() => logout()} />
       <main>
         <Fragment>
           <Routes>
@@ -96,7 +99,7 @@ function App() {
               path="/"
               element={<AuthenticatedRoute allowedRoles={["admin"]} />}
             >
-              <Route path="/" element={<Home logout={() => logout()} />} />
+              <Route path="/" element={<Home />} />
             </Route>
             <Route
               exact
@@ -105,11 +108,7 @@ function App() {
                 <AuthenticatedRoute allowedRoles={["fs-instructor", "admin"]} />
               }
             >
-              <Route
-                exact
-                path="/courses/fsd"
-                element={<Fsd logout={() => logout()} />}
-              />
+              <Route exact path="/courses/fsd" element={<Fsd />} />
             </Route>
             <Route
               exact
@@ -121,9 +120,7 @@ function App() {
               <Route
                 exact
                 path="/courses/pm"
-                element={
-                  <Pm attendanceList={attendanceList} logout={() => logout()} />
-                }
+                element={<Pm attendanceList={attendanceList} />}
               />
             </Route>
             <Route
@@ -134,12 +131,7 @@ function App() {
               <Route
                 exact
                 path="/attendance-list"
-                element={
-                  <AttendanceList
-                    attendanceList={attendanceList}
-                    logout={() => logout()}
-                  />
-                }
+                element={<AttendanceList attendanceList={attendanceList} />}
               />
             </Route>
             <Route
@@ -149,11 +141,7 @@ function App() {
                 <AuthenticatedRoute allowedRoles={["ds-instructor", "admin"]} />
               }
             >
-              <Route
-                exact
-                path="/courses/ds"
-                element={<Ds logout={() => logout()} />}
-              />
+              <Route exact path="/courses/ds" element={<Ds />} />
             </Route>
             <Route
               exact
@@ -162,11 +150,7 @@ function App() {
                 <AuthenticatedRoute allowedRoles={["fe-instructor", "admin"]} />
               }
             >
-              <Route
-                exact
-                path="/courses/fe"
-                element={<Fe logout={() => logout()} />}
-              />
+              <Route exact path="/courses/fe" element={<Fe />} />
             </Route>
             <Route
               exact
@@ -175,11 +159,7 @@ function App() {
                 <AuthenticatedRoute allowedRoles={["fe-instructor", "admin"]} />
               }
             >
-              <Route
-                exact
-                path="/courses"
-                element={<Courses logout={() => logout()} />}
-              />
+              <Route exact path="/courses" element={<Courses />} />
             </Route>
             <Route
               exact
@@ -191,7 +171,7 @@ function App() {
               <Route
                 exact
                 path="/cohorts"
-                element={<Cohorts cohorts={cohorts} logout={() => logout()} />}
+                element={<Cohorts cohorts={cohorts} />}
               />
             </Route>
             <Route
@@ -199,22 +179,14 @@ function App() {
               path="/admin"
               element={<AuthenticatedRoute allowedRoles={["admin"]} />}
             >
-              <Route
-                exact
-                path="/admin"
-                element={<Admin logout={() => logout()} />}
-              />
+              <Route exact path="/admin" element={<Admin />} />
             </Route>
             <Route
               exact
               path="/admin/surveys"
               element={<AuthenticatedRoute allowedRoles={["admin"]} />}
             >
-              <Route
-                exact
-                path="/admin/surveys"
-                element={<Surveys logout={() => logout()} />}
-              />
+              <Route exact path="/admin/surveys" element={<Surveys />} />
             </Route>
             <Route
               exact
@@ -224,7 +196,18 @@ function App() {
               <Route
                 exact
                 path="/admin/surveys/guest-speaker"
-                element={<GuestSpeaker logout={() => logout()} />}
+                element={<GuestSpeaker />}
+              />
+            </Route>
+            <Route
+              exact
+              path="/admin/surveys/post-bootcamp"
+              element={<AuthenticatedRoute allowedRoles={["admin"]} />}
+            >
+              <Route
+                exact
+                path="/admin/surveys/post-bootcamp"
+                element={<PostBootCamp />}
               />
             </Route>
             {cohorts &&
@@ -238,9 +221,7 @@ function App() {
                     <Route
                       exact
                       path={`/cohorts/${cohort.name}`}
-                      element={
-                        <Cohort cohort={cohort} logout={() => logout()} />
-                      }
+                      element={<Cohort cohort={cohort} />}
                     />
                   </Route>
                 </>

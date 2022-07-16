@@ -47,13 +47,13 @@ function Cohorts(props) {
               </Link> */}
             </div>
           </div>
-          <button
+          {/* <button
             className="m-4 py-2 px-4 border border-transparent text-sm font-medium
                 rounded-md text-black hover:bg-indigo-400 hover:text-white"
             onClick={props.logout}
           >
             Log out
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

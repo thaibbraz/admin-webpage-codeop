@@ -5,7 +5,7 @@ import { ref, onValue, getDatabase, set } from "firebase/database";
 // import { getDatabase } from "firebase/database";
 
 import React from "react";
-import { useEffect } from "react";
+
 function Cohort(props) {
   const [showModal, setShowModal] = React.useState(false);
   const [newStudent, setNewStudent] = React.useState({
@@ -15,16 +15,16 @@ function Cohort(props) {
     profile_picture: "",
   });
 
-  const database = getDatabase();
+  // const database = getDatabase();
 
-  function writeUserData() {
-    const db = getDatabase();
-    set(ref(db, "students/" + 1), {
-      username: "name",
-      email: "email",
-      profile_picture: "imageUrl",
-    });
-  }
+  // function writeUserData() {
+  //   const db = getDatabase();
+  //   set(ref(db, "students/" + 1), {
+  //     username: "name",
+  //     email: "email",
+  //     profile_picture: "imageUrl",
+  //   });
+  // }
   function handleChange(event) {
     let { name, value } = event.target;
     const newObj = {
@@ -60,7 +60,7 @@ function Cohort(props) {
                   instructor
                 </h1>
                 <h2 className="font-small leading-tight text-1xl mt-0 mb-2">
-                  {props.cohort.instructor}
+                  {props.cohort.instructor?.name}
                 </h2>
               </div>
               <div className="py-8 shadow-md border-2 bg-indigo-200 rounded-lg p-4 text-blueGray-700 rext-xs uppercase">
@@ -153,7 +153,6 @@ function Cohort(props) {
                       <button
                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => writeUserData()}
                       >
                         Add Student
                       </button>
@@ -266,13 +265,6 @@ function Cohort(props) {
             </div>
           </div>
         </div>
-        <button
-          className="m-4 py-2 px-4 border border-transparent text-sm font-medium
-                rounded-md text-black hover:bg-indigo-400 hover:text-white"
-          onClick={props.logout}
-        >
-          Log out
-        </button>
       </div>
     </div>
   );

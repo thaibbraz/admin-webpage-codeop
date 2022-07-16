@@ -1,5 +1,6 @@
 import CodeOp_logo from "../assets/CodeOp_logo_blue.jpg";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function App(props) {
   return (
@@ -15,38 +16,38 @@ function App(props) {
           <div className="py-8">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               <Link
-                className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
+                className="shadow-md rounded-xl border-2 hover:border-blue-500  hover:shadow-xl p-6 text-blueGray-700 rext-xs uppercase"
                 to="/courses"
               >
                 Courses
-              </Link>
+              </Link>{" "}
               <Link
-                className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
+                className="shadow-md rounded-xl border-2 hover:border-blue-500  hover:shadow-xl p-6 text-blueGray-700 rext-xs uppercase"
                 to="/cohorts"
               >
                 Cohorts
               </Link>
               <Link
-                className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
+                className="shadow-md rounded-xl border-2 hover:border-blue-500  hover:shadow-xl p-6 text-blueGray-700 rext-xs uppercase"
                 to="/attendance-list"
               >
                 Attendance
               </Link>
               <Link
-                className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
+                className="shadow-md rounded-xl border-2 hover:border-blue-500  hover:shadow-xl p-6 text-blueGray-700 rext-xs uppercase"
                 to="/admin"
               >
                 Admin
               </Link>
             </div>
           </div>
-          <button
+          {/* <button
             className="m-4 py-2 px-4 border border-transparent text-sm font-medium
                 rounded-md text-black hover:bg-indigo-400 hover:text-white"
             onClick={props.logout}
           >
             Log out
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

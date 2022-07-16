@@ -3,10 +3,9 @@ import { ref, onValue } from "firebase/database";
 import { auth, db } from "../../firebase-config";
 import CardStats from "../../components/CardStats";
 
-// import CodeOp_logo from "../assets/CodeOp_logo_blue.jpg";
 import { Link } from "react-router-dom";
 
-function GuestSpeaker(props) {
+function PostBootCamp(props) {
   const [surveys, setSurveys] = useState([]);
   const [collection, setCollection] = useState([]);
   const speakers = "survey-speakers";
@@ -15,8 +14,10 @@ function GuestSpeaker(props) {
     let speakersFiltered = [];
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
-
-      let speakersFiltered = data.speakers.filter((item) => item[0].length > 0);
+      console.log(data.post_bootcamp);
+      let speakersFiltered = data.post_bootcamp.filter(
+        (item) => item[0].length > 0
+      );
       speakersFiltered = speakersFiltered.sort();
       setSurveys(speakersFiltered);
 
@@ -105,4 +106,4 @@ function GuestSpeaker(props) {
   );
 }
 
-export default GuestSpeaker;
+export default PostBootCamp;

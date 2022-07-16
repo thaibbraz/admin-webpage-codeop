@@ -32,19 +32,12 @@ function Surveys(props) {
               </Link>
               <Link
                 className="shadow-md border-2 hover:border-blue-500 rounded-lg p-4 text-blueGray-700 rext-xs uppercase"
-                to="/admin/dashboard"
+                to="/admin/surveys/post-bootcamp"
               >
-                Post bootcamp Survey (In-person)
+                Post bootcamp Survey
               </Link>
             </div>
           </div>
-          <button
-            className="m-4 py-2 px-4 border border-transparent text-sm font-medium
-                rounded-md text-black hover:bg-indigo-400 hover:text-white"
-            onClick={props.logout}
-          >
-            Log out
-          </button>
         </div>
       </div>
     </div>

@@ -17,17 +17,18 @@ export default function CardStats({
 }) {
   return (
     <>
-      <div className="relative flex flex-col min-w-0 m-3 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+      <div className="relative rounded-xl py-15 bg-gray-100 py-10 px-5 flex flex-col min-w-0 m-3 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
-            <div className="relative w-full max-w-full flex-grow flex-1">
-              <h5 className="text-blueGray-400 uppercase font-bold text-sm"></h5>
-
-              <span className="font-semibold text-sm text-blueGray-700">
+            <div className="flex-1 max-w-xs w-full text-center text-black-300">
+              {/* <div className="relative w-full max-w-full flex-grow flex-1"> */}
+              <h5 className="text-blueGray-400 uppercase font-bold text-xs">
                 {statSubtitle}
-              </span>
+              </h5>
+
+              {/* <span className="font-semibold text-sm text-blueGray-700"></span> */}
             </div>
-            <div className="relative w-auto pl-4 flex-initial">
+            {/* <div className="relative w-auto pl-4 flex-initial">
               <div
                 className={
                   "text-white p-3 text-center inline-flex items-center justify-center w-10 h-10 shadow-lg rounded-full " +
@@ -36,7 +37,7 @@ export default function CardStats({
               >
                 <i className={statIconName}></i>
               </div>
-            </div>
+            </div> */}
           </div>
           <p className="text-sm text-blueGray-400 mt-4">
             Instructor:{" "}

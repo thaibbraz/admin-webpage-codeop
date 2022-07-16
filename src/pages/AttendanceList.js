@@ -1,11 +1,11 @@
 function AttendanceList(props) {
   return (
-    <div className="p-5 bg-gray-200">
+    <div className="container mx-auto m-10 p-4">
       <div className="bg-gray-100 p-4 rounded-lg shadow h-50">
         <div className="bg-white p-4 my-10 rounded-lg shadow">
           <h1 className="text-xl mb-2">Students</h1>
         </div>
-        <div className="overflow-auto my-5 rounded-lg shadow">
+        <div className="overflow-auto my-5 rounded-xl shadow">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200 shadow">
               <tr>
