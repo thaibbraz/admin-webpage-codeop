@@ -98,7 +98,7 @@ function Cohort(props) {
                   <h1 className="font-medium leading-tight text-2xl mt-0 mb-2">
                     {props.cohort.active === true ? "Active" : "Archived"}
                   </h1>
-
+                  {/* test */}
                   <h3 className="text-gray-400 uppercase">Status</h3>
                 </div>
               </div>
