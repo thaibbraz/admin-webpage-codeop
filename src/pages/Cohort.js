@@ -1,40 +1,52 @@
 import CodeOp_logo from "../assets/CodeOp_logo_blue.jpg";
+import { React, useState, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../firebase-config";
-import { ref, onValue, getDatabase, set } from "firebase/database";
-// import { getDatabase } from "firebase/database";
-
-import React from "react";
+import { auth, db } from "../firebase-config";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 function Cohort(props) {
-  const [showModal, setShowModal] = React.useState(false);
-  const [newStudent, setNewStudent] = React.useState({
+  const [showModal, setShowModal] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [newStudent, setNewStudent] = useState({
     name: "",
     email: "",
     cohort: "",
-    profile_picture: "",
+    repo: "",
+    id: "",
   });
+  const [students, setStudents] = useState([]);
 
-  // const database = getDatabase();
+  useEffect(() => {
+    onValue(ref(db), (snapshot) => {
+      const data = snapshot.val();
+      let filteredCohort = data.students.filter(function isCohort(student) {
+        return props.cohort.name.toLowerCase() === student.cohort.toLowerCase();
+      });
 
-  // function writeUserData() {
-  //   const db = getDatabase();
-  //   set(ref(db, "students/" + 1), {
-  //     username: "name",
-  //     email: "email",
-  //     profile_picture: "imageUrl",
-  //   });
-  // }
+      console.log("filteredCohort", filteredCohort);
+      setStudents(filteredCohort);
+
+      let len = data.students[data.students.length - 1].id;
+      console.log(len + 1);
+      data.students !== undefined ? setUserId(len + 1) : setUserId(0);
+    });
+  }, [newStudent]);
   function handleChange(event) {
     let { name, value } = event.target;
     const newObj = {
       ...newStudent,
       [name]: value,
     };
-    console.log(newObj);
-    console.log(name + " " + value);
+    newObj.id = userId;
     setNewStudent(newObj);
   }
+
+  function addStudent() {
+    const db = getDatabase();
+    set(ref(db, "students/" + userId), newStudent);
+    setShowModal(false);
+  }
+
   return (
     <div className="App">
       <div className="container mx-auto p-4">
@@ -119,15 +131,19 @@ function Cohort(props) {
                       <div className="my-3">
                         <input
                           type="email"
+                          name="email"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          onChange={(e) => handleChange(e)}
                           placeholder="Email"
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
                       <div className="my-3">
                         <input
-                          type="repo"
+                          type="text"
+                          name="repo"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          onChange={(e) => handleChange(e)}
                           placeholder="Project repo"
                           style={{ transition: "all .15s ease" }}
                         />
@@ -135,7 +151,9 @@ function Cohort(props) {
                       <div className="my-3">
                         <input
                           type="cohort"
+                          name="cohort"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          onChange={(e) => handleChange(e)}
                           placeholder="Cohort"
                           style={{ transition: "all .15s ease" }}
                         />
@@ -153,6 +171,7 @@ function Cohort(props) {
                       <button
                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
+                        onClick={() => addStudent()}
                       >
                         Add Student
                       </button>
@@ -186,80 +205,78 @@ function Cohort(props) {
                       Id
                     </th>
                     <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                      name
+                      Name
                     </th>
                     <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                      repos
+                      Email
                     </th>
-                    <th className="w-20 p-3 text-sm font-semibold tracking-wide">
-                      Youtube Playlist
-                    </th>
+                    {/* <th className="w-20 p-3 text-sm font-semibold tracking-wide">
+                      Cohort
+                    </th> */}
                     <th className="w-32 p-3 text-sm font-semibold tracking-wide">
-                      Missed Classes
+                      Project MVP
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {/* {props.attendanceList[Object.keys(props.attendanceList)[0]].map(
-                (item, index) => (
-                  <>
-                    <tr className="bg-white">
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        {index + 1}
-                      </td>
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        {item.name}
-                      </td>
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <span
-                          className={
-                            item.cohort[1].toLowerCase() === "e"
-                              ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-teal-800 bg-teal-200 rounded-lg bg-opacity-500 "
-                              : item.cohort[0].toLowerCase() === "f"
-                              ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-gray-800 bg-gray-200 rounded-lg bg-opacity-500 "
-                              : (item.cohort[0].toLowerCase() === "d" &&
-                                  item.cohort[3].toLowerCase() === "r") ||
-                                (item.cohort[0].toLowerCase() === "d" &&
-                                  item.cohort[3].toLowerCase() === "s")
-                              ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-indigo-800 bg-indigo-200 rounded-lg bg-opacity-500 "
-                              : "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-sky-800 bg-sky-200 rounded-lg bg-opacity-500 "
-                          }
-                        >
-                          {item.cohort}
-                        </span>
-                      </td>
+                  {students.map((item, index) => (
+                    <>
+                      <tr className="bg-white">
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          {index + 1}
+                        </td>
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          {item.name}
+                        </td>
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <span
+                          // className={
+                          //   item.cohort[1].toLowerCase() === "e"
+                          //     ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-teal-800 bg-teal-200 rounded-lg bg-opacity-500 "
+                          //     : item.cohort[0].toLowerCase() === "f"
+                          //     ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-gray-800 bg-gray-200 rounded-lg bg-opacity-500 "
+                          //     : (item.cohort[0].toLowerCase() === "d" &&
+                          //         item.cohort[3].toLowerCase() === "r") ||
+                          //       (item.cohort[0].toLowerCase() === "d" &&
+                          //         item.cohort[3].toLowerCase() === "s")
+                          //     ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-indigo-800 bg-indigo-200 rounded-lg bg-opacity-500 "
+                          //     : "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-sky-800 bg-sky-200 rounded-lg bg-opacity-500 "
+                          // }
+                          >
+                            {item.email}
+                          </span>
+                        </td>
 
-                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                        <span
-                          className={
-                            item.date.length > 6
-                              ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-red-800 bg-red-200 rounded-lg bg-opacity-500"
+                        {/* <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                          <span
+                            className={
+                              item.date.length > 6
+                                ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-red-800 bg-red-200 rounded-lg bg-opacity-500"
+                                : item.date.length > 3
+                                ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-500"
+                                : "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-green-800 bg-green-200 rounded-lg bg-opacity-500 "
+                            }
+                          >
+                            {item.date.length > 6
+                              ? "RED FlAG"
                               : item.date.length > 3
-                              ? "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-500"
-                              : "py-1 px-1.5 text:xs font-medium uppercase tracking wider text-green-800 bg-green-200 rounded-lg bg-opacity-500 "
-                          }
-                        >
-                          {item.date.length > 6
-                            ? "RED FlAG"
-                            : item.date.length > 3
-                            ? "YELLOW FLAG"
-                            : "GOOD"}
-                        </span>
-                      </td>
+                              ? "YELLOW FLAG"
+                              : "GOOD"}
+                          </span>
+                        </td> */}
 
-                      <td className="p-3 text-sm text-gray-700">
-                        <a
-                          href={item.slide_link}
-                          className="co-btn"
-                          target="_blank"
-                        >
-                          {item.missed_classes}
-                        </a>
-                      </td>
-                    </tr>
-                  </>
-                )
-              )} */}
+                        <td className="p-3 text-sm text-gray-700">
+                          <a
+                            href={item.slide_link}
+                            className="co-btn"
+                            target="_blank"
+                          >
+                            {item.repo}
+                          </a>
+                        </td>
+                      </tr>
+                    </>
+                  ))}
                 </tbody>
               </table>
             </div>
