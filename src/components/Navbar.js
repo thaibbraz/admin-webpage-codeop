@@ -1,5 +1,6 @@
 import React from "react";
 import CodeOp_logo from "../assets/C-logo_blue.png";
+import Local from "../helpers/Local";
 
 export default function Navbar(props) {
   return (
@@ -41,7 +42,7 @@ export default function Navbar(props) {
           <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
             <li>
               <a
-                href="#"
+                href="/"
                 className="block py-2 pr-4 pl-3 text-black bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
                 aria-current="page"
               >
@@ -50,37 +51,57 @@ export default function Navbar(props) {
             </li>
             <li>
               <a
-                href="#"
+                href="/courses"
                 className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-black dark:hover:bg-gray-700 dark:hover:text-black md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                About
+                Courses
               </a>
             </li>
             <li>
               <a
-                href="#"
+                href="/cohorts"
                 className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-black dark:hover:bg-gray-700 dark:hover:text-black md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Services
+                cohorts
               </a>
             </li>
             <li>
               <a
-                href="#"
+                href="/attendance-list"
                 className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-black dark:hover:bg-gray-700 dark:hover:text-black md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Pricing
+                Attendance
               </a>
             </li>
             <li>
-              <button
-                onClick={props.logout}
-                href="#"
-                className="block py-2 pr-4 pl-3 text-gray-700 font-bold hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400"
+              <a
+                href="/admin"
+                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-black dark:hover:bg-gray-700 dark:hover:text-black md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Log out
-              </button>
+                Admin
+              </a>
             </li>
+            {Local.getToken().length > 0 ? (
+              <li>
+                <button
+                  onClick={props.logout}
+                  href="#"
+                  className="block py-2 pr-4 pl-3 text-gray-700 font-bold hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400"
+                >
+                  Log out
+                </button>
+              </li>
+            ) : (
+              <li>
+                <button
+                  onClick={props.logout}
+                  href="#"
+                  className="block py-2 pr-4 pl-3 text-gray-700 font-bold hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400"
+                >
+                  Log in
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
